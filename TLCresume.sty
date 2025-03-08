@@ -1,7 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{TLCresume}[11/19/21 resume package]
 % Author: Timmy Chan
-% Modified for multi-page support
 
 % Assuming using "article" document class and letter sized paper.
 % FONT STUFF
@@ -13,8 +12,7 @@
 \RequirePackage{csquotes}
 
 % MARGINS AND SPACING
-\RequirePackage[margin=.75in, top=.75in]{geometry} % try increased margins
-% \RequirePackage[margin=.5in, top=.5in]{geometry} % Set Margins
+\RequirePackage[margin=.5in, top=.5in]{geometry} % Set Margins
 \raggedright % left align no indent
 \raggedbottom % top align no indent
 
@@ -51,10 +49,8 @@
 \begin{itemize} \itemsep 0pt \parskip 0pt \parsep 1pt}
 {\end{itemize}\vspace{-.5em}}
 
-ENABLE PAGE NUMBERS FOR MULTI-PAGE SUPPORT
-Comment this out to remove page numbers
-\pagenumbering{arabic}
-\cfoot{\thepage}
+% NO PAGE NUMBER
+\pagenumbering{gobble}
 
 % SUBFILES IMPORTING
 \RequirePackage{standalone}
