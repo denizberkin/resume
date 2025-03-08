@@ -1,6 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{TLCresume}[11/19/21 resume package]
 % Author: Timmy Chan
+% Modified for multi-page support
 
 % Assuming using "article" document class and letter sized paper.
 % FONT STUFF
@@ -12,7 +13,8 @@
 \RequirePackage{csquotes}
 
 % MARGINS AND SPACING
-\RequirePackage[margin=.5in, top=.5in]{geometry} % Set Margins
+\RequirePackage[margin=.75in, top=.75in]{geometry} % try increased margins
+% \RequirePackage[margin=.5in, top=.5in]{geometry} % Set Margins
 \raggedright % left align no indent
 \raggedbottom % top align no indent
 
@@ -40,8 +42,6 @@
 % BOLD COMMAND
 \newcommand{\skills}[1]{ {\bfseries #1}}
 
-
-
 % SUBTEXT
 \newcommand{\subtext}[1]{\textit{#1}\par\vspace{-.75em}}
 
@@ -51,8 +51,10 @@
 \begin{itemize} \itemsep 0pt \parskip 0pt \parsep 1pt}
 {\end{itemize}\vspace{-.5em}}
 
-% NO PAGE NUMBER
-\pagenumbering{gobble}
+ENABLE PAGE NUMBERS FOR MULTI-PAGE SUPPORT
+Comment this out to remove page numbers
+\pagenumbering{arabic}
+\cfoot{\thepage}
 
 % SUBFILES IMPORTING
 \RequirePackage{standalone}
@@ -60,7 +62,6 @@
 % FOR TEMPLATE FILLER
 \RequirePackage[english]{babel}
 \RequirePackage{blindtext}% Filler Text
-
 
 \usepackage{tikz}
 
