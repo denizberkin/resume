@@ -1,7 +1,3 @@
-%====================
-% Header: Contact
-%====================
-
 \RequirePackage{fancyhdr}
 \fancypagestyle{fancy}{%
 \fancyhf{}
@@ -25,6 +21,9 @@
 \renewcommand{\headrulewidth}{1pt}% 2pt header rule
 \renewcommand{\headrule}{\hbox to\headwidth{%
   \color{highlight}\leaders\hrule height \headrulewidth\hfill}}
+
+% Add page numbers at the bottom center
+\cfoot{\thepage}
 }
 \pagestyle{fancy}
 
