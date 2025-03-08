@@ -140,3 +140,4 @@ jobs:
         with:
           folder: deploy
           branch: gh-pages
+          token: ${{ secrets.DEPLOY_TOKEN }}  # Add this line
