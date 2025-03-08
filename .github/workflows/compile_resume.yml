@@ -2,11 +2,10 @@ name: Build and Deploy Resume
 on:
   push:
     paths:
-      - 'resume/**.tex'
-      - 'resume/**.cls'
-      - 'resume/**.sty'
-      - 'resume/sections/**'
-      - '.github/workflows/resume-workflow.yml'
+      - '**.tex'
+      - '**.sty'
+      - 'sections/**.tex'
+      - '.github/workflows/compile-and-deploy-resume.yml'
   workflow_dispatch:
 
 jobs:
@@ -31,51 +30,106 @@ jobs:
           working_directory: resume
           latexmk_use_xelatex: true  # For better font handling
           latexmk_shell_escape: true
-          extra_system_packages: "inkscape" # For SVG graphics if used
-          extra_fonts: "../fonts/*.ttf"
-          pre_compile: |
-            echo "Starting compilation at $(date)"
-            # Update version info in the document if needed
-            sed -i "s/%%VERSION%%/v$(date +'%Y.%m.%d')/" *.tex
-          post_compile: |
-            echo "Compilation completed at $(date)"
-            # Optimize PDF size
-            for pdf in *.pdf; do
-              gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="optimized_$pdf" "$pdf"
-              mv "optimized_$pdf" "$pdf"
-            done
+          # extra_system_packages: "texlive-fonts-extra texlive-lang-english inkscape"
+          # extra_fonts: "../fonts/*.ttf"
+          # pre_compile: |
+          #   echo "Starting compilation at $(date)"
+          #   # Update version info in the document if needed
+          #   sed -i "s/%%VERSION%%/v$(date +'%Y.%m.%d')/" *.tex
+          # post_compile: |
+          #   echo "Compilation completed at $(date)"
+          #   # Optimize PDF size
+          #   for pdf in *.pdf; do
+          #     gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="optimized_$pdf" "$pdf"
+          #     mv "optimized_$pdf" "$pdf"
+          #   done
       
       - name: Upload compiled PDFs
         uses: actions/upload-artifact@v4
         with:
-          name: Resumes
-          path: resume/*.pdf
+          name: Resume
+          path: resume.pdf
       
       # Deploy to GitHub Pages
       - name: Prepare for GitHub Pages
         run: |
           mkdir -p deploy
-          cp resume/*.pdf deploy/
+          cp resume.pdf deploy/
+          cp resume.pdf deploy/latest.pdf  # Creates an alias that will always point to latest version
           
-          # Create a simple index page
+          # Create a simple index.html page
           cat > deploy/index.html << EOF
           <!DOCTYPE html>
           <html>
           <head>
-            <title>My Resume</title>
+            <title>${GITHUB_REPOSITORY#*/} | Berkin Deniz Kahya's Resume</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
             <style>
-              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-              .resume-link { margin-bottom: 10px; }
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+              }
+              .container {
+                background-color: #f9f9f9;
+                border-radius: 8px;
+                padding: 30px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+              }
+              h1 {
+                color: #3A5A80;  /* Matches your highlight color */
+                border-bottom: 2px solid #3A5A80;
+                padding-bottom: 10px;
+              }
+              .download-button {
+                display: inline-block;
+                background-color: #3A5A80;
+                color: white;
+                padding: 12px 24px;
+                text-decoration: none;
+                border-radius: 4px;
+                font-weight: bold;
+                margin-top: 20px;
+                transition: background-color 0.3s;
+              }
+              .download-button:hover {
+                background-color: #2A4A70;
+              }
+              .update-info {
+                font-style: italic;
+                color: #666;
+                margin-top: 30px;
+                font-size: 0.9em;
+              }
+              .links {
+                margin-top: 30px;
+              }
+              .links a {
+                color: #3A5A80;
+                text-decoration: none;
+                margin-right: 15px;
+              }
+              .links a:hover {
+                text-decoration: underline;
+              }
             </style>
           </head>
           <body>
-            <h1>My Professional Resume</h1>
-            <p>Last updated: $(date)</p>
-            <div class="resume-link">
-              <a href="resume-technical.pdf">Technical Resume</a>
-            </div>
-            <div class="resume-link">
-              <a href="resume-general.pdf">General Resume</a>
+            <div class="container">
+              <h1>Berkin Deniz Kahya</h1>
+              <p>Welcome to my resume page. I'm an AI Researcher & Engineer with experience in medical image processing, segmentation, and machine learning.</p>
+              
+              <a class="download-button" href="resume.pdf">Download Resume (PDF)</a>
+              
+              <div class="links">
+                <a href="https://github.com/denizberkin" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/denizberkin" target="_blank">LinkedIn</a>
+              </div>
+              
+              <p class="update-info">Last updated: $(date +'%B %d, %Y')</p>
             </div>
           </body>
           </html>
