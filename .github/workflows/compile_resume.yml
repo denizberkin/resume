@@ -46,7 +46,7 @@ jobs:
             echo "Resume compilation failed. Please check the workflow logs." > deploy/compilation-failed.txt
           fi
           
-          # Create an improved index.html page with embedded PDF viewer
+          # improve index.html?
           cat > deploy/index.html << EOF
           <!DOCTYPE html>
           <html lang="en">
@@ -87,14 +87,14 @@ jobs:
                 background: white;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                 margin-bottom: 20px;
-                min-height: 500px;
+                min-height: 800px;
                 border-radius: 4px;
                 overflow: hidden;
               }
               .pdf-viewer {
                 width: 100%;
                 height: 100%;
-                min-height: 800px;
+                min-height: 1000px;
                 border: none;
               }
               .buttons {
@@ -145,10 +145,10 @@ jobs:
               }
               @media (max-width: 768px) {
                 .pdf-container {
-                  min-height: 400px;
+                  min-height: 600px;
                 }
                 .pdf-viewer {
-                  min-height: 400px;
+                  min-height: 600px;
                 }
               }
             </style>
@@ -185,7 +185,7 @@ jobs:
               </div>
               
               <div class="pdf-container">
-                <iframe class="pdf-viewer" src="resume.pdf" type="application/pdf"></iframe>
+                <iframe class="pdf-viewer" src="resume.pdf#toolbar=1&view=FitH" type="application/pdf"></iframe>
               </div>
             </div>
             
