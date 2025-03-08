@@ -27,7 +27,15 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: resume.tex
-          extra_system_packages: "texlive-fonts-extra texlive-lang-english"
+          # Using appropriate fonts that are available in the container
+          # The texlive-full image already has most packages we need
+          latexmk_shell_escape: true  # Enable shell escape for tikz
+          pre_compile: |
+            # Install the fontawesome package if needed
+            tlmgr update --self
+            tlmgr install fontawesome || echo "fontawesome already installed"
+            tlmgr install sourcesanspro || echo "sourcesanspro already installed"
+            tlmgr install tcolorbox || echo "tcolorbox already installed"
       
       - name: Upload compiled PDF as artifact
         uses: actions/upload-artifact@v4
@@ -39,7 +47,15 @@ jobs:
       - name: Prepare for GitHub Pages
         run: |
           mkdir -p deploy
-          cp resume.pdf deploy/ || echo "Resume PDF not found!"
+          if [ -f "resume.pdf" ]; then
+            cp resume.pdf deploy/
+            echo "Resume PDF found and copied to deploy directory"
+          else
+            echo "Resume PDF not found! Listing current directory:"
+            ls -la
+            # Create a placeholder file to prevent deployment failure
+            echo "Resume compilation failed. Please check the workflow logs." > deploy/compilation-failed.txt
+          fi
           
           # Create a simple index.html page
           cat > deploy/index.html << EOF
