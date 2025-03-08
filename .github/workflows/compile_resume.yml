@@ -1,0 +1,88 @@
+name: Build and Deploy Resume
+on:
+  push:
+    paths:
+      - 'resume/**.tex'
+      - 'resume/**.cls'
+      - 'resume/**.sty'
+      - 'resume/sections/**'
+      - '.github/workflows/resume-workflow.yml'
+  workflow_dispatch:
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      
+      # Install any additional fonts
+      - name: Download custom fonts
+        run: |
+          mkdir -p fonts
+          # Example downloading a custom font (replace with your font if needed)
+          # curl -L "https://fonts.example.com/font.ttf" -o fonts/custom.ttf
+      
+      - name: Compile multiple resume versions
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: |
+            resume.tex
+          working_directory: resume
+          latexmk_use_xelatex: true  # For better font handling
+          latexmk_shell_escape: true
+          extra_system_packages: "inkscape" # For SVG graphics if used
+          extra_fonts: "../fonts/*.ttf"
+          pre_compile: |
+            echo "Starting compilation at $(date)"
+            # Update version info in the document if needed
+            sed -i "s/%%VERSION%%/v$(date +'%Y.%m.%d')/" *.tex
+          post_compile: |
+            echo "Compilation completed at $(date)"
+            # Optimize PDF size
+            for pdf in *.pdf; do
+              gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="optimized_$pdf" "$pdf"
+              mv "optimized_$pdf" "$pdf"
+            done
+      
+      - name: Upload compiled PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: Resumes
+          path: resume/*.pdf
+      
+      # Deploy to GitHub Pages
+      - name: Prepare for GitHub Pages
+        run: |
+          mkdir -p deploy
+          cp resume/*.pdf deploy/
+          
+          # Create a simple index page
+          cat > deploy/index.html << EOF
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>My Resume</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+              .resume-link { margin-bottom: 10px; }
+            </style>
+          </head>
+          <body>
+            <h1>My Professional Resume</h1>
+            <p>Last updated: $(date)</p>
+            <div class="resume-link">
+              <a href="resume-technical.pdf">Technical Resume</a>
+            </div>
+            <div class="resume-link">
+              <a href="resume-general.pdf">General Resume</a>
+            </div>
+          </body>
+          </html>
+          EOF
+      
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: deploy
+          branch: gh-pages
