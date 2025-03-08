@@ -5,8 +5,8 @@ on:
       - '**.tex'
       - '**.sty'
       - 'sections/**.tex'
-      - '.github/workflows/compile-and-deploy-resume.yml'
-  workflow_dispatch:
+      - '.github/workflows/compile_resume.yml'
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   build_latex:
@@ -15,54 +15,38 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
       
-      # Install any additional fonts
-      - name: Download custom fonts
+      - name: List directory structure (for debugging)
         run: |
-          mkdir -p fonts
-          # Example downloading a custom font (replace with your font if needed)
-          # curl -L "https://fonts.example.com/font.ttf" -o fonts/custom.ttf
+          echo "Current directory: $(pwd)"
+          echo "Directory listing:"
+          ls -la
+          echo "Sections directory:"
+          ls -la sections/ || echo "Sections directory not found"
       
-      - name: Compile multiple resume versions
+      - name: Compile LaTeX resume
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: |
-            resume.tex
-          working_directory: resume
-          latexmk_use_xelatex: true  # For better font handling
-          latexmk_shell_escape: true
-          # extra_system_packages: "texlive-fonts-extra texlive-lang-english inkscape"
-          # extra_fonts: "../fonts/*.ttf"
-          # pre_compile: |
-          #   echo "Starting compilation at $(date)"
-          #   # Update version info in the document if needed
-          #   sed -i "s/%%VERSION%%/v$(date +'%Y.%m.%d')/" *.tex
-          # post_compile: |
-          #   echo "Compilation completed at $(date)"
-          #   # Optimize PDF size
-          #   for pdf in *.pdf; do
-          #     gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="optimized_$pdf" "$pdf"
-          #     mv "optimized_$pdf" "$pdf"
-          #   done
+          root_file: resume.tex
+          extra_system_packages: "texlive-fonts-extra texlive-lang-english"
       
-      - name: Upload compiled PDFs
+      - name: Upload compiled PDF as artifact
         uses: actions/upload-artifact@v4
         with:
           name: Resume
           path: resume.pdf
       
-      # Deploy to GitHub Pages
+      # Setup GitHub Pages deployment
       - name: Prepare for GitHub Pages
         run: |
           mkdir -p deploy
-          cp resume.pdf deploy/
-          cp resume.pdf deploy/latest.pdf  # Creates an alias that will always point to latest version
+          cp resume.pdf deploy/ || echo "Resume PDF not found!"
           
           # Create a simple index.html page
           cat > deploy/index.html << EOF
           <!DOCTYPE html>
           <html>
           <head>
-            <title>${GITHUB_REPOSITORY#*/} | Berkin Deniz Kahya's Resume</title>
+            <title>Berkin Deniz Kahya's Resume</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <style>
               body {
@@ -80,7 +64,7 @@ jobs:
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
               }
               h1 {
-                color: #3A5A80;  /* Matches your highlight color */
+                color: #3A5A80;
                 border-bottom: 2px solid #3A5A80;
                 padding-bottom: 10px;
               }
@@ -120,9 +104,9 @@ jobs:
           <body>
             <div class="container">
               <h1>Berkin Deniz Kahya</h1>
-              <p>Welcome to my resume page. I'm an AI Researcher & Engineer with experience in medical image processing, segmentation, and machine learning.</p>
+              <p> Resume page testing... </p>
               
-              <a class="download-button" href="resume.pdf">Download Resume (PDF)</a>
+              <a class="download-button" href="resume.pdf"> download my resume (PDF)</a>
               
               <div class="links">
                 <a href="https://github.com/denizberkin" target="_blank">GitHub</a>
