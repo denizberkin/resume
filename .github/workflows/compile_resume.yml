@@ -5,6 +5,7 @@ on:
       - '**.tex'
       - '**.sty'
       - '**.html'
+      - 'assets/**'
       - 'sections/**.tex'
       - '.github/workflows/compile_resume.yml'
   workflow_dispatch:  # Allows manual triggering
