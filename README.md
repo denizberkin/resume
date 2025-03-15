@@ -1,5 +1,25 @@
 ### Repository containing latex files to host and render my resume through: [https://denizberkin.github.io/resume/](denizberkin/resume)
 
+## File Structure
+
+```
+├── .github/
+│   └── workflows/
+│       └── compile_resume.yml
+├── sections/
+│   ├── activities.tex
+│   ├── education.tex
+│   ├── experience.tex
+│   ├── objective.tex
+│   └── skills.tex
+├── assets/
+│   └── pdf-icon.svg              # optional pdf svg to render as icon
+├── _header.tex
+├── index.html                    # for html render
+├── README.md
+├── resume.tex                    # main resume creation latex
+└── TLCresume.sty
+```
 
 ### Thanks and references:
 
