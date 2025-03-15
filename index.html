@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berkin Deniz Kahya | Resume</title>
+    <style>
+        :root {
+            --primary-color: #3A5A80;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #1e2a36;
+            --card-text: #fff;
+            --section-bg: #f9f9f9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 200px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .sidebar li {
+            padding: 10px 20px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .sidebar li:hover, .sidebar li.active {
+            background-color: rgba(255,255,255,0.1);
+            border-left: 3px solid white;
+        }
+        
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 200px;
+            padding: 20px;
+            max-width: 1200px;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .pdf-link {
+            display: flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .pdf-link:hover {
+            background-color: #2A4A70;
+            text-decoration: none;
+        }
+        
+        .pdf-icon {
+            margin-right: 8px;
+            width: 24px;
+            height: 24px;
+        }
+        
+        .section {
+            background-color: var(--section-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .basics-card {
+            background-color: var(--card-bg);
+            color: var(--card-text);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .basics-grid {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 15px;
+        }
+        
+        .basics-label {
+            font-weight: bold;
+            color: #87CEEB;
+        }
+        
+        .work-item, .education-item, .project-item {
+            margin-bottom: 25px;
+        }
+        
+        .work-header, .edu-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .work-title, .edu-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .work-date, .edu-date {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .work-company {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .work-details ul, .project-details ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .work-details li, .project-details li {
+            margin-bottom: 5px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            row-gap: 15px;
+            column-gap: 20px;
+        }
+        
+        .skill-category {
+            font-weight: bold;
+        }
+        
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .skill-item {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 10px;
+            }
+            
+            .sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 10px;
+            }
+            
+            .sidebar li {
+                padding: 5px 10px;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+            }
+            
+            .sidebar li:hover, .sidebar li.active {
+                border-left: none;
+                border-bottom: 2px solid white;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .pdf-link {
+                margin-top: 15px;
+            }
+            
+            .basics-grid, .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .work-header, .edu-header {
+                flex-direction: column;
+            }
+            
+            .work-date, .edu-date {
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <ul>
+                <li class="active"><a href="#basics">Basics</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#languages">Languages</a></li>
+                <li><a href="#interests">Interests</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h1 class="title">CV</h1>
+                    <p class="subtitle">Overview of my academic and professional background. For more details download the PDF version.</p>
+                </div>
+                <a href="#" class="pdf-link" target="_blank">
+                    <svg class="pdf-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path fill="currentColor" d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"/>
+                    </svg>
+                    View PDF Version
+                </a>
+            </header>
+            
+            <section id="basics" class="basics-card">
+                <h2 class="section-title">Basics</h2>
+                <div class="basics-grid">
+                    <div class="basics-label">Name</div>
+                    <div>Berkin Deniz Kahya</div>
+                    
+                    <div class="basics-label">Title</div>
+                    <div>AI Researcher, Software Engineer</div>
+                    
+                    <div class="basics-label">Email</div>
+                    <div><a href="mailto:berkindeniz2000@gmail.com" style="color: white;">berkindeniz2000@gmail.com</a></div>
+                    
+                    <div class="basics-label">Url</div>
+                    <div><a href="https://www.linkedin.com/in/denizberkin" style="color: white;">https://www.linkedin.com/in/denizberkin</a></div>
+                    
+                    <div class="basics-label">Summary</div>
+                    <div>AI Researcher specializing in medical image processing and segmentation. Currently working on computer vision applications while pursuing a degree in Mechatronics Engineering.</div>
+                </div>
+            </section>
+            
+            <section id="work" class="section">
+                <h2 class="section-title">Work</h2>
+                
+                <div class="work-item">
+                    <div class="work-header">
+                        <div class="work-title">AI Researcher</div>
+                        <div class="work-date">02/25 - Present</div>
+                    </div>
+                    <div class="work-company">
+                        <a href="https://www.linkedin.com/company/huawei/">Huawei</a>
+                    </div>
+                    <div class="work-details">
+                        <ul>
+                            <li>--</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="work-item">
+                    <div class="work-header">
+                        <div class="work-title">AI Researcher & Engineer</div>
+                        <div class="work-date">10/23 - 10/24</div>
+                    </div>
+                    <div class="work-company">
+                        <a href="https://www.linkedin.com/company/mogram">Mogram</a>
+                    </div>
+                    <div class="work-details">
+                        <ul>
+                            <li>Mass & Tumour & Calcification segmentation with various encoder-decoder networks.</li>
+                            <li>Used patch-based transformer encoder-decoder network to enhance f1 and box f1 scores by around 10%.</li>
+                            <li>R&D of the segmentation training pipeline with MLflow.</li>
+                            <li>Combined fast-slic algorithm with adaptive thresholding to gain roughly 10x speed over CPU-bound processes.</li>
+                            <li>Design of on-premise service authentication and encryption routines.</li>
+                            <li>Anonymization of the DICOM file structure and organization of datasets.</li>
+                            <li>Resolved Docker and MongoDB issues in a remote setup.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="work-item">
+                    <div class="work-header">
+                        <div class="work-title">Google ML Bootcamp & AI Projects & Study Group</div>
+                        <div class="work-date">02/21 - Present</div>
+                    </div>
+                    <div class="work-company">
+                        <a href="https://inzva.com/">Inzva</a>
+                    </div>
+                    <div class="work-details">
+                        <ul>
+                            <li>Design and tracking of learning materials as a member of the AI Team.</li>
+                            <li>Gave lectures on Structures of ML projects and Computer Vision Fundamentals.</li>
+                            <li>Google Tensorflow Developer & DL Specialization certificates.</li>
+                            <li>Worked with Mamba architecture on State Space Tracking/Modelling of Transformer-based LLMs.</li>
+                            <li>Application of various deep learning models and study programs to solve real-life and designed challenges for peer learning.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="work-item">
+                    <div class="work-header">
+                        <div class="work-title">AI Research Student</div>
+                        <div class="work-date">06/22 - 10/23</div>
+                    </div>
+                    <div class="work-company">
+                        <a href="https://www.asillab.com/">ASIL Laboratories</a>
+                    </div>
+                    <div class="work-details">
+                        <ul>
+                            <li>Dataset creation, labelling & preprocessing of medical histopathology images.</li>
+                            <li>Segmentation for pixel-wise tumour detection, f1 over 70% with unified resampling for post-processing.</li>
+                            <li>Image augmentation techniques with Autoencoder and Diffusion models.</li>
+                            <li>Publishing a paper to <a href="https://www.jidonline.org/">JID Q1</a> is in progress.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="work-item">
+                    <div class="work-header">
+                        <div class="work-title">Machine Learning Intern</div>
+                        <div class="work-date">07/22 - 08/22</div>
+                    </div>
+                    <div class="work-company">
+                        <a href="https://optiwisdom.com/">Optiwisdom</a>
+                    </div>
+                    <div class="work-details">
+                        <ul>
+                            <li>Integration of the customer database into NoSql.</li>
+                            <li>Various ML methods (boosting & tree algorithms) for revenue prediction.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="education" class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <div class="edu-header">
+                        <div class="edu-title">Mechatronics Engineering, Yıldız Technical University</div>
+                        <div class="edu-date">09/19 - 12/24</div>
+                    </div>
+                    <div>GPA: 3.04/4.00</div>
+                </div>
+            </section>
+            
+            <section id="projects" class="section">
+                <h2 class="section-title">Projects</h2>
+                
+                <div class="project-item">
+                    <h3>Other Study</h3>
+                    <div class="project-details">
+                        <ul>
+                            <li>Worked on 3D car localization with sensor fusion and YOLO 
+                            <a href="https://www.youtube.com/watch?v=FBLalZQ7VFo">🔗</a></li>
+                            <li>Building an autonomous microscope to classify fungi cells for the graduation project.
+                            <a href="https://github.com/denizberkin/grad-project-without-database">🔗</a></li>
+                            <li>Deep Learning Specialization courses and certificate by Andrew Ng.
+                            <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/WNJCS69WKCQ8">🔗</a></li>
+                            <li>Tensorflow Developer courses and certificate by Laurence Moroney.
+                            <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/3WKMBQ8CVFY4">🔗</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <h3>Self Study Projects</h3>
+                    <div class="project-details">
+                        <ul>
+                            <li>Basic chess game and a user interface using Python. 
+                            <a href="https://github.com/denizberkin/test_chess">🔗</a></li>
+                            <li>Worked on creating a chess bot using alpha-beta pruning.</li>
+                            <li>Visualizing signals using Laplace Transformation with manim library on Python.</li>
+                            <li>Training of <a href="https://arxiv.org/pdf/1505.04597">UNet</a>/<a href="https://arxiv.org/pdf/2201.01266">SwinUnetR</a> architecture on the Skin Lesion Segmentation dataset.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="skills" class="section">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">Tools and Languages</div>
+                    <div class="skill-items">
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">Git</span>
+                        <span class="skill-item">PyTorch</span>
+                        <span class="skill-item">TF & Keras</span>
+                        <span class="skill-item">OpenCV</span>
+                        <span class="skill-item">Cuda</span>
+                        <span class="skill-item">MLflow</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">MongoDB</span>
+                        <span class="skill-item">C & C++</span>
+                        <span class="skill-item">Matlab</span>
+                        <span class="skill-item">SQL</span>
+                    </div>
+                    
+                    <div class="skill-category">Research Interest & Areas</div>
+                    <div class="skill-items">
+                        <span class="skill-item">Medical Image Processing & Segmentation</span>
+                        <span class="skill-item">Scene generation in motion pictures</span>
+                        <span class="skill-item">Mathematical Modeling and Visualization with Manim</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="languages" class="section">
+                <h2 class="section-title">Languages</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">Communication</div>
+                    <div class="skill-items">
+                        <span class="skill-item">Turkish</span>
+                        <span class="skill-item">English</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="interests" class="section">
+                <h2 class="section-title">Interests</h2>
+                <div class="project-item">
+                    <h3>Other Interests</h3>
+                    <div class="project-details">
+                        <ul>
+                            <li>Mathematical modelling and curious about its applications in learning.</li>
+                            <li>Reading articles about new topics related to up-to-date methods in AI.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.sidebar a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active link
+                    document.querySelectorAll('.sidebar li').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.parentElement.classList.add('active');
+                });
+            });
+            
+            // Highlight active section on scroll
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                const navItems = document.querySelectorAll('.sidebar li');
+                
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 50) {
+                        currentSection = '#' + section.getAttribute('id');
+                    }
+                });
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.querySelector('a').getAttribute('href') === currentSection) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
