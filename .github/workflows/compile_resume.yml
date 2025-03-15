@@ -16,24 +16,42 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
       
-      - name: Compile LaTeX resume
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: resume.tex
-          latexmk_shell_escape: true
-          pre_compile: |
-            tlmgr update --self
-            tlmgr install fontawesome || echo "fontawesome already installed"
-            tlmgr install sourcesanspro || echo "sourcesanspro already installed"
-            tlmgr install tcolorbox || echo "tcolorbox already installed"
+      # - name: Compile LaTeX resume
+      #   uses: xu-cheng/latex-action@v3
+      #   with:
+      #     root_file: resume.tex
+      #     latexmk_shell_escape: true
+      #     pre_compile: |
+      #       sudo tlmgr update --self
+      #       sudo tlmgr install fontawesome || echo "fontawesome already installed"
+      #       sudo lmgr install sourcesanspro || echo "sourcesanspro already installed"
+      #       sudo lmgr install tcolorbox || echo "tcolorbox already installed"
       
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+
+      - name: Install required LaTeX packages
+        run: |
+          sudo tlmgr init-usertree
+          sudo tlmgr update --self || echo "tlmgr self-update failed, continuing anyway"
+          sudo tlmgr install fontawesome || echo "fontawesome already installed"
+          sudo tlmgr install sourcesanspro || echo "sourcesanspro already installed"
+          sudo tlmgr install tcolorbox || echo "tcolorbox already installed"
+
+      - name: Compile LaTeX document
+        run: |
+          pdflatex -shell-escape resume.tex
+          pdflatex -shell-escape resume.tex  # Run twice for references
+
       - name: Upload compiled PDF as artifact
         uses: actions/upload-artifact@v4
         with:
           name: Resume
           path: resume.pdf
       
-      # Setup GitHub Pages deployment
+      # Setup gitHub pages deployment
       - name: Prepare for GitHub Pages
         run: |
           mkdir -p deploy
