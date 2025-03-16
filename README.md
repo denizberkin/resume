@@ -1,4 +1,4 @@
-### Repository containing latex files to host and render my resume through: [https://denizberkin.github.io/resume/](denizberkin/resume)
+### Resume page: [denizberkin/resume](https://denizberkin.github.io/resume/)
 
 ## File Structure
 
