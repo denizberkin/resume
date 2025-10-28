@@ -5,8 +5,10 @@ on:
       - '**.tex'
       - '**.sty'
       - '**.html'
-      - 'assets/**'
+      - 'latex2html.py'
+      - 'src/**.py'
       - 'sections/**.tex'
+      - 'assets/**'
       - '.github/workflows/compile_resume.yml'
   workflow_dispatch:  # Allows manual triggering
 
@@ -25,8 +27,8 @@ jobs:
       #     pre_compile: |
       #       sudo tlmgr update --self
       #       sudo tlmgr install fontawesome || echo "fontawesome already installed"
-      #       sudo lmgr install sourcesanspro || echo "sourcesanspro already installed"
-      #       sudo lmgr install tcolorbox || echo "tcolorbox already installed"
+      #       sudo tlmgr install sourcesanspro || echo "sourcesanspro already installed"
+      #       sudo tlmgr install tcolorbox || echo "tcolorbox already installed"
       
       - name: Install TeX Live
         run: |
@@ -51,6 +53,16 @@ jobs:
         with:
           name: Resume
           path: resume.pdf
+      
+      # - name: Set up Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.12'
+
+      # - name: Generate html from latex
+      #   run: |
+      #     python latex2html.py --verbose
+      #     echo "HTML generation complete"
       
       # Setup gitHub pages deployment
       - name: Prepare for GitHub Pages
