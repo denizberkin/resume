@@ -1,4 +1,5 @@
 ### Resume page: [denizberkin/resume](https://denizberkin.github.io/resume/)
+* TODO: pls remember to write a tex2html converter for resume. bothersome to update two things everytime.
 
 ## File Structure
 
