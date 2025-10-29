@@ -1,14 +1,11 @@
 \documentclass[letter,14pt]{article}
 \usepackage[utf8]{inputenc}
 
+
 \usepackage{sections/TLCresume}
 \usepackage{fontawesome}
 \usepackage{graphicx}
 \usepackage[most]{tcolorbox}
-
-% Enable page numbers - Remove the gobble command
-\pagenumbering{arabic}
-
 %====================
 % CONTACT INFORMATION
 %====================
@@ -24,19 +21,28 @@
 
 \input{sections/_header}
 \begin{document}
+\thispagestyle{fancy}
+\pagestyle{empty} 
+
 \input{sections/objective}
 
 \section{Skills}
 \input{sections/skills}
 
+\section{Published}
+\input{sections/published}
+
 \section{Technical Experience}
 \input{sections/experience}
+
+\newpage
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{20pt}
 
 \section{Education}
 \input{sections/education}
 
 \section{Interests \& Studies}
 \input{sections/activities}
-
 
 \end{document}

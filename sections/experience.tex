@@ -1,39 +1,36 @@
 \documentclass[letter, 14pt]{article}
 \usepackage{TLCresume}
-
-% FORMAT:
-% \subsection{Title \hfill \textit{\textmd{MM/YY - MM/YY}}}
-% \subtext{\href{URL}{\color{black}{Name of Workplace}}}
-% \begin{zitemize}
-% \item first point
-% \item ...
-% \item last point
-% \end{zitemize}
-
-
 \begin{document}
 
-\subsection{AI Researcher \hfill \textit{\textmd{02/25 - Present}}}
-\subtext{\href{https://www.linkedin.com/company/huawei/}{\color{black}{Huawei}} \hfill}
+
+\subsection{Research Engineer \hfill \textit{\textmd{02/25 - Present/}}}
+\subtext{\href{https://www.linkedin.com/company/huawei}{\color{black}{Huawei}} \hfill}
 \begin{zitemize}
-\item --
+\item Article on measuring phonetic distance between cross-lingual character pairs, at IEEE SIU 2025 Conference. \href{https://ieeexplore.ieee.org/abstract/document/11112305}{\color{black}\externallink} \\
+\item ~1\% improvement to accuracy in ranking pipeline via the addition of phonetic feature
+\item ~2\% improvement to translation accuracy on queries belonging Cyrillic and Arabic alphabets.
+\item Augmentation of queries via recall strategies on translation dictionaries.
 \end{zitemize}
 
-
+%====================
+% EXPERIENCE A
+%====================
 \subsection{AI Researcher \& Engineer \hfill \textit{\textmd{10/23 - 10/24}}}
 \subtext{\href{https://www.linkedin.com/company/mogram}{\color{black}{Mogram}} \hfill}
 \begin{zitemize}
 \item Mass \& Tumour \& Calcification segmentation with various encoder-decoder networks.
 \item Used patch-based transformer encoder-decoder network to enhance f1 and box f1 scores by around 10\%.
 \item R\&D of the segmentation training pipeline with MLflow.
-\item Combined fast-slic algorithm with adaptive thresholding to gain roughly 10x speed over CPU-bound processes.
+\item Combined \href{https://www.epfl.ch/labs/ivrl/research/slic-superpixels/}{\color{black}{SLIC}} algorithm with adaptive thresholding to gain roughly 10x speed over CPU-bound processes.
 \item Design of on-premise service authentication and encryption routines.
 \item Anonymization of the DICOM file structure and organization of datasets.
 \item Resolved Docker and MongoDB issues in a remote setup. 
 \end{zitemize}
 
-
-\subsection{AI Team Member \& Participant \& Lecturer \hfill\textit{\textmd{02/21 - Present}}}
+%====================
+% EXPERIENCE B
+%====================
+\subsection{AI Team Member \& Participant \& Lecturer \hfill\textit{\textmd{{\tiny$\sim$} 02/21 - Present}}}
 \subtext{\href{https://inzva.com/}{\color{black}{Inzva}}}
 \begin{zitemize}
 \item Design and tracking of learning materials as a member of the AI Team.
@@ -44,16 +41,23 @@
 \end{zitemize}
 
 
+%====================
+% EXPERIENCE C
+%====================
 \subsection{AI Research Student \hfill \textit{\textmd{ 06/22 - 10/23}}}
 \subtext{\href{https://www.asillab.com/}{{\color{black}{ASIL Laboratories}}} \hfill}
 \begin{zitemize}
 \item Dataset creation, labelling \& preprocessing of medical histopathology images.
 \item Segmentation for pixel-wise tumour detection, f1 over 70\% with unified resampling for post-processing.
 \item Image augmentation techniques with Autoencoder and Diffusion models
-\item Publishing a paper to \href{https://www.jidonline.org/}{\color{black}{JID Q1}} is in progress.
+\item Published abstract on 
+\href{https://arxiv.org/abs/2504.05219}{\color{black}{arxiv. \externallink}}
 \end{zitemize}
 
 
+%====================
+% EXPERIENCE D
+%====================
 \subsection{Machine Learning Intern \hfill \textit{\textmd{ 07/22 - 08/22}}}
 \subtext{\href{https://optiwisdom.com/}{{\color{black}{Optiwisdom}}} \hfill}
 \begin{zitemize}
@@ -61,7 +65,9 @@
 \item Various ML methods (boosting \& tree algorithms) for revenue prediction.
 \end{zitemize}
 
-
+%====================
+% EXPERIENCE E
+%====================
 %%% \subsection{Intern / Machine Workshop \hfill \textit{\textmd{ 01/2022 - %%% 02/2022 }}}
 %%% \subtext{\href{http://www.pro-ser.com/index_en.htm}{{\color{black}{Pro-Ser Laboratory Equipments and Automation}}}}
 %%% \begin{zitemize}
@@ -71,6 +77,9 @@
 %%% \end{zitemize}
 
 
+%====================
+% EXPERIENCE F
+%==================== 
 \subsection{Other Study}
 \subtext{}
 \begin{zitemize}
@@ -83,5 +92,6 @@
 \item Tensorflow Developer courses and certificate by Laurence Moroney. 
 \href{https://www.coursera.org/account/accomplishments/specialization/certificate/3WKMBQ8CVFY4}{\color{black}\externallink}
 \end{zitemize}
+
 
 \end{document}
