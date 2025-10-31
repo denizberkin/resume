@@ -1,0 +1,43 @@
+<main class="main-content">
+    <header class="header">
+        <div>
+            <h1 class="title">Resume</h1>
+        </div>
+        <a href="resume.pdf" class="pdf-link" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-file-pdf pdf-icon"></i>
+            View PDF Version
+        </a>
+    </header>
+
+    <section id="basics" class="basics-card">
+        <h2 class="section-title"><i class="fas fa-id-card"></i> Personal Info</h2>
+        <div class="basics-grid">
+            <div class="basics-label">Name</div>
+            <div>{NAME}</div>
+            
+            <div class="basics-label">Title</div>
+            <div>{TITLE}</div>
+            
+            <div class="basics-label">Email</div>
+            <div><a href="mailto:{EMAIL}" style="color: white;">{EMAIL}</a></div>
+            
+            <div class="basics-label">Location</div>
+            <div>{LOCATION}</div>
+            
+            <div class="basics-label">Links</div>
+            <div>
+                <a href="https://www.linkedin.com/in/{LINKEDIN}" target="_blank" rel="noopener noreferrer" style="color: white; margin-right: 15px;">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/{GITHUB}" target="_blank" rel="noopener noreferrer" style="color: white;">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            {ADD_SECTION_TO_BASICS}
+        </div>
+    </section>
+
+    <section id="work" class="section">
+        <h2 class="section-title"><i class="fas fa-briefcase"></i> Work Experience</h2>
+        {EXPERIENCES}
+        </section>

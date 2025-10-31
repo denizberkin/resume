@@ -1,0 +1,91 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.sidebar a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+                
+                // Update active link
+                document.querySelectorAll('.sidebar li').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.parentElement.classList.add('active');
+            });
+        });
+        
+        // Highlight active section on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.sidebar li');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 50) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.querySelector('a').getAttribute('href') === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Fade-in animation for sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        
+        const observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = "0";
+            section.style.transform = "translateY(20px)";
+            section.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            observer.observe(section);
+        });
+        
+        document.addEventListener('scroll', function() {
+            document.querySelectorAll('section').forEach(section => {
+                const position = section.getBoundingClientRect();
+                
+                if(position.top < window.innerHeight && position.bottom >= 0) {
+                    section.classList.add('fade-in');
+                }
+            });
+        });
+        
+        // Style for the fade-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            .fade-in {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
